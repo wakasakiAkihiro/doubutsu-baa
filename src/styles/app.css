@@ -1,0 +1,1087 @@
+@import url('/fonts/font.css');
+:root {
+  font-family:
+    'Zen Maru Gothic', 'Hiragino Maru Gothic ProN', 'Yu Gothic', sans-serif;
+  color: #655342;
+  background: #faf7ee;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  font-weight: 500;
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  min-width: 280px;
+}
+button {
+  font: inherit;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+  color: inherit;
+  border: 0;
+}
+button:focus-visible {
+  outline: 3px solid #637f58;
+  outline-offset: 6px;
+}
+button:disabled {
+  cursor: default;
+}
+button,
+svg,
+img {
+  -webkit-user-select: none;
+  user-select: none;
+}
+svg {
+  display: block;
+}
+h1,
+p {
+  margin: 0;
+}
+html,
+body {
+  overscroll-behavior: none;
+}
+.app {
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+  background:
+    radial-gradient(ellipse at 50% 49%, #fffdf6 0, transparent 67%), #faf7ee;
+}
+.app:before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.12;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.74' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Cpath fill='%2389785e' opacity='.24' filter='url(%23n)' d='M0 0h180v180H0z'/%3E%3C/svg%3E");
+}
+.header {
+  height: 104px;
+  padding: 24px 5.3%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  z-index: 3;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+.brand svg {
+  width: 29px;
+  height: 29px;
+  color: #daa470;
+}
+.sound-button {
+  min-width: 112px;
+  height: 56px;
+  border: 1px solid #e6dfd1;
+  border-radius: 30px;
+  background: #fffdf680;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  font-size: 12px;
+  letter-spacing: 0.03em;
+}
+.sound-button svg {
+  width: 20px;
+  height: 20px;
+}
+.main {
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 620px;
+  padding-top: 18px;
+}
+.heading-area {
+  z-index: 2;
+  text-align: center;
+  flex-shrink: 0;
+}
+.eyebrow {
+  font-size: 13px;
+  letter-spacing: 0.16em;
+  color: #958471;
+  line-height: 1.8;
+}
+.intro h1 {
+  font-size: 58px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1.35;
+  margin-top: 13px;
+  display: flex;
+  gap: 17px;
+  justify-content: center;
+  align-items: baseline;
+}
+.intro h1 span {
+  color: #d48755;
+}
+.intro h1 em {
+  display: inline-block;
+  font-style: normal;
+  transform: rotate(9deg);
+  margin-left: -5px;
+}
+.intro-copy {
+  font-size: 16px;
+  letter-spacing: 0.12em;
+  margin-top: 16px;
+  color: #99836e;
+}
+.scene-wrap {
+  position: relative;
+  width: min(100%, 680px);
+  flex: 1;
+  min-height: 330px;
+  max-height: 410px;
+  margin-top: 8px;
+}
+.scene {
+  width: 100%;
+  height: auto;
+  min-height: 0 !important;
+  position: absolute;
+  inset: 0;
+  display: block;
+  background: transparent;
+  isolation: isolate;
+  touch-action: manipulation;
+}
+.ground {
+  position: absolute;
+  width: 78%;
+  height: 60%;
+  max-height: 245px;
+  background: #e8edda;
+  border-radius: 50%;
+  bottom: 2%;
+  left: 11%;
+  z-index: -1;
+  transform: scaleY(0.58);
+}
+.animal-wrap {
+  position: absolute;
+  display: block;
+  width: 340px;
+  height: 340px;
+  max-width: 70%;
+  max-height: 100%;
+  bottom: 6%;
+  left: 50%;
+  margin-left: -170px;
+  transform-origin: 50% 85%;
+  z-index: 2;
+}
+.animal-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+  filter: drop-shadow(0 7px 5px #7f735508);
+}
+.welcome-animal {
+  width: 315px;
+  height: 315px;
+  margin-left: -157.5px;
+  bottom: 5%;
+}
+.scene-cloud {
+  position: absolute;
+  background: #eeebdf;
+  border-radius: 60px;
+  height: 18px;
+  width: 76px;
+  opacity: 0.8;
+  pointer-events: none;
+  z-index: 0;
+}
+.scene-cloud:before,
+.scene-cloud:after {
+  content: '';
+  position: absolute;
+  background: inherit;
+  border-radius: 50%;
+  bottom: 6px;
+  width: 30px;
+  height: 30px;
+  left: 13px;
+}
+.scene-cloud:after {
+  width: 40px;
+  height: 39px;
+  left: 30px;
+}
+.cloud-one {
+  left: 10%;
+  top: 20%;
+}
+.cloud-two {
+  right: 5%;
+  top: 41%;
+  transform: scale(0.65);
+}
+.scene-sun {
+  position: absolute;
+  right: 13%;
+  top: 8%;
+  height: 48px;
+  width: 48px;
+  border-radius: 50%;
+  background: #efdcab;
+  opacity: 0.8;
+}
+.scene-flower {
+  position: absolute;
+  width: 23px;
+  height: 23px;
+  color: #dba57f;
+  z-index: 2;
+}
+.flower-left {
+  left: 20%;
+  bottom: 18%;
+  transform: rotate(12deg);
+}
+.flower-right {
+  right: 22%;
+  bottom: 7%;
+  width: 17px;
+  color: #dbc58c;
+}
+.grass {
+  position: absolute;
+  width: 95px;
+  height: 48px;
+  border-radius: 60% 60% 20% 20%;
+  background: #acc297;
+  bottom: 13%;
+  z-index: 3;
+}
+.grass:before,
+.grass:after {
+  content: '';
+  position: absolute;
+  background: inherit;
+  width: 45px;
+  height: 65px;
+  border-radius: 70% 70% 0 0;
+  bottom: 0;
+  left: 14px;
+  transform: rotate(-18deg);
+}
+.grass:after {
+  height: 45px;
+  left: 45px;
+  transform: rotate(25deg);
+}
+.grass-left {
+  left: 13%;
+  transform: rotate(-8deg) scale(0.8);
+}
+.grass-right {
+  right: 12%;
+  transform: rotate(12deg) scale(0.6);
+  background: #bfccaa;
+}
+.action-area {
+  min-height: 145px;
+  position: relative;
+  z-index: 4;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  margin-top: 6px;
+}
+.primary-button {
+  width: 276px;
+  min-height: 74px;
+  background: #cd8250;
+  border-radius: 45px;
+  color: #fffaf0;
+  font-size: 25px;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  box-shadow: 0 5px 0 #b97244;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 36px;
+  transition:
+    transform 0.15s,
+    box-shadow 0.15s;
+}
+.primary-button:active {
+  transform: translateY(3px);
+  box-shadow: 0 2px 0 #b97244;
+}
+.primary-button svg {
+  width: 26px;
+  height: 26px;
+}
+.action-hint {
+  margin-top: 25px;
+  font-size: 13px;
+  color: #9c8d79;
+  letter-spacing: 0.08em;
+}
+footer {
+  height: 67px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  position: relative;
+  font-size: 11px;
+  color: #9b9483;
+  letter-spacing: 0.11em;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+.footer-leaf {
+  width: 12px;
+  height: 8px;
+  background: #b6c0a2;
+  border-radius: 80% 0 80% 0;
+  transform: rotate(-22deg);
+}
+.playing .main {
+  min-height: 620px;
+  padding-top: 36px;
+}
+.game-heading {
+  height: 98px;
+}
+.game-heading h1 {
+  font-size: 38px;
+  letter-spacing: 0.08em;
+  margin-top: 12px;
+  font-weight: 700;
+}
+.playing .scene-wrap {
+  max-height: 460px;
+  margin-top: 0;
+}
+.playing .scene {
+  min-height: 345px;
+}
+.playing .animal-wrap {
+  height: 365px;
+  width: 365px;
+  max-width: 78%;
+  margin-left: -182.5px;
+  bottom: 9%;
+}
+.playing .ground {
+  bottom: 0;
+}
+.hiding-place {
+  position: absolute;
+  width: 440px;
+  max-width: 91%;
+  left: 50%;
+  bottom: 7%;
+  transform: translateX(-50%);
+  transform-origin: 50% 95%;
+  z-index: 3;
+  transition:
+    transform 0.45s ease,
+    opacity 0.4s ease;
+}
+.hiding-place svg {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+.hiding-place.is-open {
+  transform: translateX(-50%) translateY(32px) scale(0.68, 0.33);
+  opacity: 0.6;
+  z-index: 1;
+}
+.hiding-water.is-open {
+  transform: translateX(-50%) translateY(8px) scale(0.94, 0.65);
+  opacity: 0.75;
+}
+.peek-marks {
+  position: absolute;
+  display: flex;
+  gap: 12px;
+  left: 50%;
+  bottom: 30%;
+  transform: translateX(-50%);
+}
+.peek-marks i {
+  display: block;
+  width: 9px;
+  height: 12px;
+  border-radius: 50%;
+  background: #fff8e9;
+}
+.hiding-box .peek-marks {
+  bottom: 25%;
+}
+.hiding-leaf .peek-marks {
+  bottom: 40%;
+}
+.hiding-cloud .peek-marks,
+.hiding-water .peek-marks {
+  opacity: 0.7;
+}
+.touch-hint {
+  font-size: 16px;
+  letter-spacing: 0.12em;
+  color: #91826c;
+  line-height: 1.7;
+}
+.touch-hint span {
+  display: block;
+  letter-spacing: 0.6em;
+  color: #c4b59f;
+  margin-top: 2px;
+}
+.next-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  height: 64px;
+  width: 235px;
+  flex-shrink: 0;
+  margin-top: 12px;
+  background: #edf0e1;
+  color: #6e835d;
+  border: 1px solid #dce3cd;
+  border-radius: 40px;
+  font-size: 17px;
+  letter-spacing: 0.08em;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.35s;
+}
+.next-button svg {
+  width: 23px;
+}
+.next-button.is-ready {
+  opacity: 1;
+  visibility: visible;
+}
+.playing .action-area {
+  height: 148px;
+  min-height: 148px;
+}
+.phase-leaving .animal-wrap {
+  opacity: 0;
+  transition: opacity 0.35s;
+}
+.sparkles {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  animation: sparkle 0.7s ease-out both;
+}
+.sparkles svg {
+  position: absolute;
+  width: 28px;
+  color: #e4bc78;
+  left: 19%;
+  top: 24%;
+}
+.sparkles svg:nth-of-type(2) {
+  left: auto;
+  right: 20%;
+  top: 36%;
+  width: 20px;
+  color: #d9a28c;
+}
+.sparkles i {
+  position: absolute;
+  background: #c0cda5;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  left: 27%;
+  top: 12%;
+}
+.sparkles i:last-child {
+  left: auto;
+  right: 28%;
+  top: 11%;
+  width: 6px;
+  height: 6px;
+}
+.react-pop {
+  animation: pop 0.55s ease-out;
+}
+.react-bounce {
+  animation: bounce 0.65s ease-out;
+}
+.react-wiggle {
+  animation: wiggle 0.65s ease-out;
+}
+.react-float {
+  animation: float 0.7s ease-in-out;
+}
+.react-twirl {
+  animation: twirl 0.65s ease-out;
+}
+@keyframes pop {
+  0% {
+    transform: scale(0.82);
+    opacity: 0.2;
+  }
+  55% {
+    transform: scale(1.04);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-22px);
+  }
+  70% {
+    transform: translateY(-4px);
+  }
+}
+@keyframes wiggle {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+  25% {
+    transform: rotate(-6deg);
+  }
+  65% {
+    transform: rotate(6deg);
+  }
+}
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-17px) rotate(3deg);
+  }
+}
+@keyframes twirl {
+  0%,
+  100% {
+    transform: rotate(0) scale(1);
+  }
+  40% {
+    transform: rotate(-9deg) scale(1.04);
+  }
+  75% {
+    transform: rotate(4deg);
+  }
+}
+@keyframes sparkle {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  30% {
+    opacity: 0.85;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.05);
+  }
+}
+@media (min-width: 1100px) {
+  .main {
+    padding-top: 10px;
+  }
+  .scene-wrap {
+    max-height: 420px;
+  }
+  .header {
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+  .intro .scene-wrap {
+    margin-top: 0;
+  }
+  .intro h1 {
+    font-size: 62px;
+  }
+  .intro-copy {
+    margin-top: 14px;
+  }
+  .action-area {
+    margin-top: 0;
+  }
+}
+@media (max-width: 600px) {
+  .header {
+    height: 88px;
+    padding: 17px 23px;
+  }
+  .brand {
+    font-size: 12px;
+    gap: 8px;
+  }
+  .brand svg {
+    width: 24px;
+    height: 24px;
+  }
+  .sound-button {
+    min-width: 92px;
+    height: 54px;
+    gap: 6px;
+    font-size: 11px;
+  }
+  .sound-button svg {
+    width: 19px;
+  }
+  .main {
+    min-height: 620px;
+    padding-top: 18px;
+  }
+  .eyebrow {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+  }
+  .intro h1 {
+    display: block;
+    font-size: 46px;
+    margin-top: 18px;
+    line-height: 1.22;
+    letter-spacing: 0.08em;
+  }
+  .intro h1 span {
+    display: block;
+    font-size: 68px;
+    margin-top: 3px;
+  }
+  .intro-copy {
+    font-size: 13px;
+    margin-top: 19px;
+    letter-spacing: 0.1em;
+  }
+  .scene-wrap {
+    min-height: 270px;
+    max-height: 310px;
+    margin-top: 0;
+  }
+  .scene {
+    min-height: 270px;
+  }
+  .welcome-animal {
+    width: 265px;
+    height: 265px;
+    margin-left: -132.5px;
+    max-width: 73%;
+    bottom: 0;
+  }
+  .ground {
+    width: 90%;
+    left: 5%;
+    bottom: -2%;
+  }
+  .scene-sun {
+    width: 33px;
+    height: 33px;
+    right: 11%;
+    top: 14%;
+  }
+  .cloud-one {
+    transform: scale(0.63);
+    left: 1%;
+    top: 25%;
+  }
+  .cloud-two {
+    right: 0;
+    top: 48%;
+    transform: scale(0.45);
+  }
+  .grass-left {
+    left: 0;
+    bottom: 10%;
+    transform: scale(0.55);
+  }
+  .grass-right {
+    right: 0;
+    bottom: 7%;
+    transform: scale(0.4);
+  }
+  .flower-left {
+    left: 14%;
+    bottom: 14%;
+    width: 16px;
+  }
+  .flower-right {
+    right: 15%;
+    bottom: 0;
+    width: 14px;
+  }
+  .action-area {
+    min-height: 135px;
+    margin-top: 21px;
+  }
+  .primary-button {
+    width: 253px;
+    min-height: 71px;
+    font-size: 23px;
+  }
+  .action-hint {
+    font-size: 11px;
+    margin-top: 24px;
+  }
+  footer {
+    height: 62px;
+    font-size: 10px;
+    letter-spacing: 0.05em;
+  }
+  .playing .main {
+    padding-top: 38px;
+    min-height: 620px;
+  }
+  .game-heading {
+    height: 104px;
+  }
+  .game-heading .eyebrow {
+    font-size: 13px;
+  }
+  .game-heading h1 {
+    font-size: 30px;
+    margin-top: 17px;
+    letter-spacing: 0.06em;
+  }
+  .playing .scene-wrap {
+    min-height: 300px;
+    max-height: 360px;
+  }
+  .playing .scene {
+    min-height: 300px;
+  }
+  .playing .animal-wrap {
+    width: 310px;
+    height: 310px;
+    margin-left: -155px;
+    max-width: 84%;
+    bottom: 5%;
+  }
+  .hiding-place {
+    bottom: 5%;
+    max-width: 99%;
+  }
+  .playing .action-area {
+    margin-top: 14px;
+  }
+  .touch-hint {
+    font-size: 14px;
+  }
+  .next-button {
+    width: 230px;
+    height: 64px;
+    font-size: 16px;
+  }
+  .sparkles svg {
+    left: 9%;
+    top: 26%;
+  }
+  .sparkles svg:nth-of-type(2) {
+    right: 9%;
+  }
+}
+@media (max-width: 370px) {
+  .header {
+    padding-inline: 16px;
+  }
+  .brand {
+    font-size: 11px;
+  }
+  .intro h1 {
+    font-size: 40px;
+  }
+  .intro h1 span {
+    font-size: 59px;
+  }
+  .welcome-animal {
+    width: 240px;
+    height: 240px;
+    margin-left: -120px;
+  }
+  .playing .animal-wrap {
+    width: 270px;
+    height: 270px;
+    margin-left: -135px;
+  }
+  .game-heading h1 {
+    font-size: 27px;
+  }
+  .scene-wrap,
+  .scene {
+    min-height: 250px;
+  }
+}
+@media (max-height: 760px) and (max-width: 600px) {
+  .header {
+    height: 76px;
+    padding-block: 11px;
+  }
+  .main {
+    padding-top: 8px;
+    min-height: 0;
+  }
+  .intro h1 {
+    font-size: 37px;
+    margin-top: 12px;
+  }
+  .intro h1 span {
+    font-size: 53px;
+  }
+  .intro-copy {
+    margin-top: 12px;
+  }
+  .intro .scene-wrap {
+    min-height: 226px;
+    max-height: 250px;
+  }
+  .intro .scene {
+    min-height: 226px;
+  }
+  .welcome-animal {
+    width: 225px;
+    height: 225px;
+    margin-left: -112.5px;
+  }
+  .intro .action-area {
+    margin-top: 15px;
+    min-height: 117px;
+  }
+  .primary-button {
+    min-height: 64px;
+  }
+  .action-hint {
+    margin-top: 19px;
+  }
+  footer {
+    height: 44px;
+  }
+  .playing .main {
+    min-height: 0;
+    padding-top: 16px;
+  }
+  .playing .scene-wrap,
+  .playing .scene {
+    min-height: 275px;
+  }
+  .playing .animal-wrap {
+    width: 280px;
+    height: 280px;
+    margin-left: -140px;
+  }
+  .playing .action-area {
+    margin-top: 0;
+  }
+  .game-heading {
+    height: 88px;
+  }
+}
+@media (max-height: 540px) and (min-width: 600px) {
+  .header {
+    height: 56px;
+    padding: 0 24px;
+  }
+  .main,
+  .playing .main {
+    min-height: 300px;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    width: min(900px, 100%);
+    align-self: center;
+  }
+  .heading-area {
+    grid-column: 1;
+    grid-row: 1;
+    align-self: end;
+  }
+  .intro h1 {
+    font-size: 36px;
+    gap: 8px;
+  }
+  .intro-copy {
+    font-size: 12px;
+    margin-top: 8px;
+  }
+  .eyebrow {
+    font-size: 10px;
+  }
+  .scene-wrap,
+  .playing .scene-wrap {
+    grid-column: 2;
+    grid-row: 1/3;
+    height: 280px;
+    min-height: 0;
+    margin: 0;
+  }
+  .scene,
+  .playing .scene {
+    min-height: 0;
+    height: auto;
+  }
+  .welcome-animal {
+    height: 250px;
+    width: 250px;
+    margin-left: -140px;
+  }
+  .playing .animal-wrap {
+    height: 250px;
+    width: 250px;
+    margin-left: -145px;
+  }
+  .action-area,
+  .playing .action-area {
+    grid-column: 1;
+    grid-row: 2;
+    margin-top: 0;
+  }
+  .primary-button {
+    min-height: 60px;
+    width: 220px;
+    font-size: 20px;
+  }
+  .game-heading h1 {
+    font-size: 28px;
+  }
+  .hiding-place {
+    max-width: 95%;
+  }
+  footer {
+    height: 34px;
+  }
+}
+.scene .animal-wrap {
+  left: 0;
+  right: 0;
+  margin-inline: auto;
+}
+@media (max-width: 600px) and (max-height: 650px) {
+  .header {
+    height: 64px;
+    padding: 6px 18px;
+  }
+  .main {
+    padding-top: 5px;
+  }
+  .intro .eyebrow {
+    font-size: 9px;
+  }
+  .intro h1 {
+    font-size: 29px;
+    margin-top: 9px;
+  }
+  .intro h1 span {
+    font-size: 44px;
+  }
+  .intro-copy {
+    font-size: 11px;
+    margin-top: 10px;
+  }
+  .intro .scene-wrap,
+  .intro .scene {
+    min-height: 195px;
+    max-height: 215px;
+  }
+  .welcome-animal {
+    width: 200px;
+    height: 200px;
+  }
+  .intro .action-area {
+    min-height: 96px;
+    margin-top: 8px;
+  }
+  .primary-button {
+    min-height: 60px;
+  }
+  .action-hint {
+    margin-top: 14px;
+    font-size: 10px;
+  }
+  footer {
+    height: 32px;
+    font-size: 9px;
+  }
+  .playing .main {
+    padding-top: 8px;
+  }
+  .game-heading {
+    height: 77px;
+  }
+  .game-heading h1 {
+    font-size: 26px;
+    margin-top: 12px;
+  }
+  .playing .scene-wrap,
+  .playing .scene {
+    min-height: 220px;
+    max-height: 255px;
+  }
+  .playing .animal-wrap {
+    height: 230px;
+    width: 230px;
+  }
+  .playing .action-area {
+    min-height: 128px;
+    height: 128px;
+  }
+  .touch-hint {
+    font-size: 12px;
+  }
+  .touch-hint span {
+    line-height: 1;
+  }
+  .next-button {
+    margin-top: 10px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *:before,
+  *:after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+  .sparkles {
+    display: none;
+  }
+  .phase-leaving .animal-wrap {
+    opacity: 0.5;
+  }
+}
