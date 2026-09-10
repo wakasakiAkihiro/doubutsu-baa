@@ -911,7 +911,7 @@ footer {
     height: 88px;
   }
 }
-@media (max-height: 540px) and (min-width: 600px) {
+@media (max-height: 700px) and (min-width: 600px) {
   .header {
     height: 56px;
     padding: 0 24px;

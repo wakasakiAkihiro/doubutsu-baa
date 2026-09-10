@@ -37,6 +37,9 @@ test('welcome → reveal → react → next, responsive and error free', async (
     .getByRole('button', { name: 'あそぼう' })
     .boundingBox()
   expect(start!.height).toBeGreaterThanOrEqual(60)
+  expect(start!.y + start!.height).toBeLessThanOrEqual(
+    page.viewportSize()!.height,
+  )
   await page.getByRole('button', { name: 'あそぼう' }).click()
   await expect(page.locator('main')).toHaveAttribute('data-phase', 'hiding')
   const area = await page.getByTestId('play-area').boundingBox()
@@ -61,12 +64,11 @@ test('welcome → reveal → react → next, responsive and error free', async (
     expect(box!.y + box!.height).toBeLessThanOrEqual(
       page.viewportSize()!.height,
     )
-    if (info.project.name !== 'landscape') {
-      const heading = await page
-        .getByRole('heading', { level: 1 })
-        .boundingBox()
-      expect(box!.y).toBeGreaterThanOrEqual(heading!.y + heading!.height)
-    }
+    const heading = await page.getByRole('heading', { level: 1 }).boundingBox()
+    expect(
+      box!.y >= heading!.y + heading!.height ||
+        box!.x >= heading!.x + heading!.width,
+    ).toBe(true)
     if (turn === 0)
       await page.screenshot({
         path: `artifacts/qa/${info.project.name}-revealed.png`,

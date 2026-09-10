@@ -49,6 +49,10 @@ export default defineConfig({
       use: { browserName: 'chromium', viewport: { width: 1440, height: 900 } },
     },
     {
+      name: 'short-desktop',
+      use: { browserName: 'chromium', viewport: { width: 1258, height: 622 } },
+    },
+    {
       name: 'small-320',
       use: {
         browserName: 'chromium',
