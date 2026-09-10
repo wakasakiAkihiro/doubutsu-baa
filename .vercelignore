@@ -3,3 +3,9 @@ artifacts
 test-results
 playwright-report
 .git
+.vercel
+.env
+.env.*
+*.pem
+*.key
+*credentials*
