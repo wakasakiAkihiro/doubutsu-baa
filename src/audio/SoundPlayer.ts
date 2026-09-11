@@ -1,4 +1,10 @@
 export type Sound = 'reveal' | 'tap' | 'sparkle' | 'next'
+export type Cue = 'hide' | 'reveal'
+const cuePaths: Record<Cue, string> = {
+  hide: '/audio/inai-inai.wav',
+  reveal: '/audio/baa.wav',
+}
+export const CUE_WAIT_LIMIT = 450
 const notes: Record<Sound, readonly number[]> = {
   reveal: [392, 523.25, 659.25],
   tap: [440, 554.37],
@@ -11,6 +17,44 @@ export class SoundPlayer {
   private muted = false
   private lastPlayed = -Infinity
   private voices = new Set<OscillatorNode>()
+  private files = new Map<Cue, Promise<ArrayBuffer | undefined>>()
+  private buffers = new Map<Cue, Promise<AudioBuffer | undefined>>()
+  private speech: AudioBufferSourceNode | undefined
+  private pending: (() => void) | undefined
+  private cueVersion = 0
+  /** Fetch only: don't open an audio device until the first user gesture. */
+  prepare() {
+    for (const cue of Object.keys(cuePaths) as Cue[]) {
+      if (!this.files.has(cue)) {
+        this.files.set(
+          cue,
+          fetch(cuePaths[cue])
+            .then((response) => {
+              if (!response.ok) throw new Error('Voice unavailable')
+              return response.arrayBuffer()
+            })
+            .catch(() => undefined),
+        )
+      }
+    }
+  }
+  private buffer(cue: Cue, context: AudioContext) {
+    this.prepare()
+    if (!this.buffers.has(cue)) {
+      this.buffers.set(
+        cue,
+        this.files.get(cue)!.then(async (bytes) => {
+          if (!bytes) return undefined
+          try {
+            return await context.decodeAudioData(bytes.slice(0))
+          } catch {
+            return undefined
+          }
+        }),
+      )
+    }
+    return this.buffers.get(cue)!
+  }
   setMuted(value: boolean) {
     this.muted = value
     if (value) this.silence()
@@ -23,15 +67,76 @@ export class SoundPlayer {
         (window as Window & { webkitAudioContext?: typeof AudioContext })
           .webkitAudioContext
       if (!Constructor) return
-      this.context ??= new Constructor()
-      if (this.context.state === 'suspended')
-        void this.context.resume().catch(() => {})
+      this.context ??= new Constructor({ latencyHint: 'interactive' })
+      if (this.context.state !== 'running')
+        return this.context.resume().catch(() => {})
     } catch {
       /* Optional sound. */
     }
   }
+  /** The visual cue and decoded audio start together; slow/failed audio never traps play. */
+  playCue(cue: Cue, onStart: () => void = () => {}) {
+    this.silence()
+    if (this.muted || document.hidden) {
+      onStart()
+      return
+    }
+    const resumed = this.unlock()
+    const context = this.context
+    if (!context) {
+      onStart()
+      return
+    }
+    const version = this.cueVersion
+    let finished = false
+    const finish = (buffer?: AudioBuffer) => {
+      if (finished) return
+      finished = true
+      window.clearTimeout(timeout)
+      this.pending = undefined
+      if (
+        buffer &&
+        version === this.cueVersion &&
+        !this.muted &&
+        !document.hidden &&
+        context.state === 'running'
+      ) {
+        try {
+          const source = context.createBufferSource()
+          const gain = context.createGain()
+          source.buffer = buffer
+          gain.gain.value = 0.8
+          source.connect(gain)
+          gain.connect(context.destination)
+          source.onended = () => {
+            source.disconnect()
+            gain.disconnect()
+            if (this.speech === source) this.speech = undefined
+          }
+          this.speech = source
+          source.start()
+        } catch {
+          this.speech = undefined
+        }
+      }
+      onStart()
+    }
+    const timeout = window.setTimeout(() => finish(), CUE_WAIT_LIMIT)
+    this.pending = () => finish()
+    void Promise.all([resumed, this.buffer(cue, context)])
+      .then(([, buffer]) => finish(buffer))
+      .catch(() => finish())
+    // Decode the other short cue while this one plays.
+    void this.buffer(cue === 'hide' ? 'reveal' : 'hide', context)
+  }
   play(sound: Sound) {
-    if (this.muted || document.hidden || Date.now() - this.lastPlayed < 120)
+    if (
+      this.muted ||
+      document.hidden ||
+      this.speech ||
+      this.pending ||
+      Date.now() - this.lastPlayed < 120
+    )
       return
     this.unlock()
     const context = this.context
@@ -63,6 +168,15 @@ export class SoundPlayer {
     }
   }
   silence() {
+    this.cueVersion++
+    this.pending?.()
+    this.pending = undefined
+    try {
+      this.speech?.stop()
+    } catch {
+      /* Already stopped. */
+    }
+    this.speech = undefined
     for (const voice of this.voices) {
       try {
         voice.stop()
@@ -88,5 +202,6 @@ export class SoundPlayer {
       /* Optional. */
     }
     this.context = undefined
+    this.buffers.clear()
   }
 }

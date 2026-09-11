@@ -5,6 +5,7 @@ import {
   NEXT_DELAY,
   REVEAL_DURATION,
   TRANSITION_DURATION,
+  REVEAL_REACTION_DURATION,
 } from '../src/hooks/useGame'
 const advance = (ms: number) => act(() => vi.advanceTimersByTime(ms))
 const tap = () => {
@@ -37,6 +38,9 @@ describe('toddler play flow', () => {
     render(<App />)
     start()
     const first = screen.getByTestId('animal').getAttribute('data-animal')
+    tap()
+    expect(screen.getByTestId('animal')).toHaveAttribute('data-reaction', '0')
+    advance(REVEAL_REACTION_DURATION)
     tap()
     expect(screen.getByTestId('animal')).toHaveAttribute('data-reaction', '1')
     advance(NEXT_DELAY)
@@ -85,6 +89,7 @@ describe('toddler play flow', () => {
     )
     render(<App />)
     start()
+    advance(REVEAL_REACTION_DURATION)
     tap()
     expect(screen.getByTestId('animal')).toHaveAttribute('data-reaction', '1')
     advance(NEXT_DELAY)

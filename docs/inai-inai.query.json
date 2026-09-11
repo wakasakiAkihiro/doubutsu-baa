@@ -1,0 +1,90 @@
+{
+  "accent_phrases": [
+    {
+      "moras": [
+        {
+          "text": "イ",
+          "vowel": "i",
+          "vowel_length": 0.08495599031448364,
+          "pitch": 5.521541595458984,
+          "consonant": null,
+          "consonant_length": null
+        },
+        {
+          "text": "ナ",
+          "vowel": "a",
+          "vowel_length": 0.14009560644626617,
+          "pitch": 5.665387153625488,
+          "consonant": "n",
+          "consonant_length": 0.06198485940694809
+        },
+        {
+          "text": "イ",
+          "vowel": "i",
+          "vowel_length": 0.12221517413854599,
+          "pitch": 5.80527400970459,
+          "consonant": null,
+          "consonant_length": null
+        }
+      ],
+      "accent": 3,
+      "pause_mora": {
+        "text": "、",
+        "consonant": null,
+        "consonant_length": null,
+        "vowel": "pau",
+        "vowel_length": 0.5765048861503601,
+        "pitch": 0.0
+      },
+      "is_interrogative": false
+    },
+    {
+      "moras": [
+        {
+          "text": "イ",
+          "vowel": "i",
+          "vowel_length": 0.07071540504693985,
+          "pitch": 5.512327194213867,
+          "consonant": null,
+          "consonant_length": null
+        },
+        {
+          "text": "ナ",
+          "vowel": "a",
+          "vowel_length": 0.14066646993160248,
+          "pitch": 5.658817291259766,
+          "consonant": "n",
+          "consonant_length": 0.06093096733093262
+        },
+        {
+          "text": "ア",
+          "vowel": "a",
+          "vowel_length": 0.14017193019390106,
+          "pitch": 5.809680461883545,
+          "consonant": null,
+          "consonant_length": null
+        },
+        {
+          "text": "イ",
+          "vowel": "i",
+          "vowel_length": 0.130228191614151,
+          "pitch": 5.811592102050781,
+          "consonant": null,
+          "consonant_length": null
+        }
+      ],
+      "accent": 4,
+      "pause_mora": null,
+      "is_interrogative": false
+    }
+  ],
+  "speed_scale": 0.92,
+  "pitch_scale": 0.035,
+  "intonation_scale": 1.18,
+  "volume_scale": 1.0,
+  "pre_phoneme_length": 0.015,
+  "post_phoneme_length": 0.08,
+  "output_sampling_rate": 24000,
+  "output_stereo": false,
+  "kana": "イナイ'、イナアイ'"
+}

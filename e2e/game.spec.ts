@@ -1,4 +1,13 @@
-import { expect, test, type Page } from '@playwright/test'
+import { expect, test, type Page, type TestInfo } from '@playwright/test'
+async function captureStage(page: Page, info: TestInfo, stage: string) {
+  // WebKit screenshots inject an empty inline stylesheet to sync animations.
+  // Keep production CSP and console checks intact by capturing Chromium only.
+  if (info.project.use.browserName === 'webkit') return
+  await page.screenshot({
+    path: `artifacts/qa/${info.project.name}-${stage}.png`,
+    fullPage: true,
+  })
+}
 async function reveal(page: Page) {
   await page.waitForTimeout(170)
   await page.getByTestId('play-area').click()
@@ -25,10 +34,7 @@ test('welcome → reveal → react → next, responsive and error free', async (
   await expect(page.getByRole('button', { name: 'あそぼう' })).toBeVisible()
   await page.evaluate(() => document.fonts.ready)
   await expect(page.getByAltText('いぬ')).toHaveJSProperty('complete', true)
-  await page.screenshot({
-    path: `artifacts/qa/${info.project.name}-welcome.png`,
-    fullPage: true,
-  })
+  await captureStage(page, info, 'welcome')
   const width = page.viewportSize()!.width
   expect(
     await page.evaluate(() => document.documentElement.scrollWidth),
@@ -44,10 +50,7 @@ test('welcome → reveal → react → next, responsive and error free', async (
   await expect(page.locator('main')).toHaveAttribute('data-phase', 'hiding')
   const area = await page.getByTestId('play-area').boundingBox()
   expect(area!.width).toBeGreaterThanOrEqual(300)
-  await page.screenshot({
-    path: `artifacts/qa/${info.project.name}-hidden.png`,
-    fullPage: true,
-  })
+  await captureStage(page, info, 'hidden')
   const seen = new Set<string>()
   for (let turn = 0; turn < 3; turn++) {
     await reveal(page)
@@ -69,11 +72,7 @@ test('welcome → reveal → react → next, responsive and error free', async (
       box!.y >= heading!.y + heading!.height ||
         box!.x >= heading!.x + heading!.width,
     ).toBe(true)
-    if (turn === 0)
-      await page.screenshot({
-        path: `artifacts/qa/${info.project.name}-revealed.png`,
-        fullPage: true,
-      })
+    if (turn === 0) await captureStage(page, info, 'revealed')
     await page.getByTestId('play-area').click()
     await expect(animal).toHaveAttribute('data-reaction', '1')
     await expect(

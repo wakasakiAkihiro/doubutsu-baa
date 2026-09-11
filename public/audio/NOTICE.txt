@@ -1,0 +1,11 @@
+合成音声：VOICEVOX:四国めたん（あまあま）
+
+inai-inai.wav / baa.wav は本アプリ用に生成した音声です。
+商用・非商用で利用できますが、クレジット表記と以下の規約遵守が必要です。
+VOICEVOX: https://voicevox.hiroshiba.jp/term/
+音声ライブラリ: https://zunko.jp/con_ongen_kiyaku.html
+
+再利用・再配布時も両規約と音源共通規約に従ってください。
+他者に利用を許諾する場合も、これらの条件の遵守を義務付けてください。
+無条件の利用許諾やCC0素材ではありません。
+生成条件と手順: リポジトリの docs/AUDIO.md

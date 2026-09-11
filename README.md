@@ -4,7 +4,9 @@
 
 ソースコード：[wakasakiAkihiro/doubutsu-baa](https://github.com/wakasakiAkihiro/doubutsu-baa)
 
-Vercel本番URLは公開後に追記します。現在の公開・検証状況は [QA記録](docs/QA.md) を参照してください。
+本番で遊ぶ：[どうぶつ ばあ！](https://doubutsu-baa.vercel.app)
+
+Vercelの専用プロジェクト `doubutsu-baa` に公開済みです。本番URLでも8環境のゲーム操作・画像読み込みを検証しています。詳細は [QA記録](docs/QA.md) を参照してください。
 
 ## 遊び方
 
@@ -93,7 +95,7 @@ Remove-Item Env:BASE_URL
 - 動物画像：Codex内蔵の画像生成機能で、共通の子犬画像を画風の参照にして1種類ずつ制作したオリジナル画像です。透明背景の600×600 WebPとして `public/animals/` に保存します。
 - 画風：柔らかなガッシュ、水彩絵本の質感、丸い形、温かいパステル色。画像に文字、ロゴ、有名キャラクターは含めません。
 - 隠れ場所・花・背景：このプロジェクト用に作成したSVGとCSSです。
-- 音：Web Audio APIのサイン波から作る短いチャイム4種類です。実在の鳴き声や第三者の音源は使用していません。
+- 音：「いないいない」「ばあ」の合成音声2点（VOICEVOX:四国めたん）と、Web Audio APIで作る短いチャイム4種類です。声の再生と動物の登場・跳ねる動きを同期させています。生成方法・利用条件は [音声素材](docs/AUDIO.md) に記録し、アプリにもクレジットを表記しています。
 - フォント：Zen Maru Gothic（SIL Open Font License 1.1）。必要な文字をプロジェクト内に保存し、ブラウザからGoogle Fontsへ通信しません。ライセンスは `public/fonts/OFL.txt` です。
 - 画像の再最適化用スクリプトは `scripts/optimize-assets.mjs`、フォントの準備は `scripts/prepare-font.mjs` です。通常の起動やビルドにこれらの実行は不要です。
 

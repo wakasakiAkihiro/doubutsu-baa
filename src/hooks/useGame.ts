@@ -5,6 +5,7 @@ import type { SoundPlayer } from '../audio/SoundPlayer'
 export const REVEAL_DURATION = 7000
 export const NEXT_DELAY = 1600
 export const TRANSITION_DURATION = 400
+export const REVEAL_REACTION_DURATION = 720
 export const hidingPlaces = ['bush', 'box', 'cloud', 'leaf', 'water'] as const
 export type HidingPlace = (typeof hidingPlaces)[number]
 type Phase = 'intro' | 'hiding' | 'revealed' | 'leaving'
@@ -27,6 +28,7 @@ export function useGame(sound: SoundPlayer) {
   const [paused, setPaused] = useState(document.hidden)
   const lastTap = useRef(-Infinity)
   const locked = useRef(false)
+  const celebratingUntil = useRef(0)
   useEffect(() => {
     const onVisibility = () => {
       setPaused(document.hidden)
@@ -38,6 +40,7 @@ export function useGame(sound: SoundPlayer) {
   const next = useCallback(() => {
     if (locked.current) return
     locked.current = true
+    sound.silence()
     sound.play('next')
     setGame((previous) => ({ ...previous, phase: 'leaving', ready: false }))
   }, [sound])
@@ -67,9 +70,10 @@ export function useGame(sound: SoundPlayer) {
       }))
       lastTap.current = Date.now()
       locked.current = false
+      sound.playCue('hide')
     }, TRANSITION_DURATION)
     return () => window.clearTimeout(timeout)
-  }, [game.phase, paused])
+  }, [game.phase, paused, sound])
   useEffect(() => {
     const paths = [game.animal.image]
     if (bag.current) paths.push(bag.current.peek().image)
@@ -83,7 +87,7 @@ export function useGame(sound: SoundPlayer) {
     lastTap.current = Date.now()
     if (game.phase === 'intro') {
       sound.unlock()
-      sound.play('tap')
+      sound.playCue('hide')
       bag.current = new ShuffleBag(animals)
       setGame({
         phase: 'hiding',
@@ -93,9 +97,14 @@ export function useGame(sound: SoundPlayer) {
         ready: false,
       })
     } else if (game.phase === 'hiding') {
-      sound.play('reveal')
-      setGame((previous) => ({ ...previous, phase: 'revealed', reaction: 0 }))
+      locked.current = true
+      sound.playCue('reveal', () => {
+        locked.current = false
+        celebratingUntil.current = Date.now() + REVEAL_REACTION_DURATION
+        setGame((previous) => ({ ...previous, phase: 'revealed', reaction: 0 }))
+      })
     } else if (game.phase === 'revealed') {
+      if (Date.now() < celebratingUntil.current) return
       sound.play(game.reaction % 3 === 2 ? 'sparkle' : 'tap')
       setGame((previous) => ({ ...previous, reaction: previous.reaction + 1 }))
     }

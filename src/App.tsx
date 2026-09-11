@@ -11,7 +11,10 @@ function App() {
   const game = useGame(sound)
   const intro = game.phase === 'intro'
   const revealed = game.phase === 'revealed' || game.phase === 'leaving'
-  useEffect(() => () => sound.dispose(), [sound])
+  useEffect(() => {
+    sound.prepare()
+    return () => sound.dispose()
+  }, [sound])
   const toggleSound = () => {
     const value = !muted
     setMuted(value)
@@ -87,7 +90,7 @@ function App() {
             {(intro || revealed) && (
               <span
                 key={`${game.turn}-${game.reaction}`}
-                className={`animal-wrap ${intro ? 'welcome-animal' : `react-${game.animation}`}`}
+                className={`animal-wrap ${intro ? 'welcome-animal' : game.reaction === 0 ? 'react-peekaboo' : `react-${game.animation}`}`}
                 data-testid="animal"
                 data-animal={game.animal.id}
                 data-reaction={game.reaction}
@@ -154,10 +157,13 @@ function App() {
         </div>
       </main>
       <footer>
-        <span className="footer-leaf" aria-hidden="true" />
-        {intro
-          ? 'おやこで、のんびり。なんどでも。'
-          : 'ちいさな「できた」を、なんどでも。'}
+        <div className="footer-message">
+          <span className="footer-leaf" aria-hidden="true" />
+          {intro
+            ? 'おやこで、のんびり。なんどでも。'
+            : 'ちいさな「できた」を、なんどでも。'}
+        </div>
+        <small className="voice-credit">合成音声：VOICEVOX:四国めたん</small>
       </footer>
     </div>
   )
