@@ -59,3 +59,14 @@ E2Eは再試行なしで成功しました。全種類の実画像が読み込�
 WebKit検証はブラウザエンジンによるエミュレーションです。物理的なiPhone・Androidでのタッチ感覚、端末の消音設定、効果音の聴感確認は未実施です。端末では開始・登場・次のターン、音量と消音、縦横表示を確認してください。
 
 再検証方法は [README](../README.md) に記載しています。
+
+## ホーム画面アイコン更新（2026年11月2日）
+
+- リリースコミット：`dbb7bd3`。Vercel Production / READY、デプロイID：`dpl_FiCWMBCrZGQxWwCnrhdZHuuoR3qN`。
+- 型検査・lint・整形・23件のUnit/UIテスト・本番ビルド：成功。
+- 主要操作のE2E：既存の8環境すべてで開始・登場・反応・次のターンが成功。HTTPエラー・console error・未処理例外なし。
+- 本番URLのHTMLからApple touch iconとWeb App Manifestへの参照を確認。Chromiumの `Page.getAppManifest` は解析エラー0件、アプリ名・standalone表示・maskableアイコンの宣言を確認。
+- 本番でPNG全5点とICOのHTTP 200を確認し、配信内容がローカルのリリース画像と一致。PNGの実寸（32・180・192・512px）と不透明背景、ICO内の16・32・48pxフレームを検証。
+- 原画・180pxアイコン・スマホ画面を目視確認。物理的なiPhone・Androidでのホーム画面追加操作は未実施。
+
+生成用原画は `assets/branding/`、生成指示は [icon-prompt.json](icon-prompt.json) に保存。配信には各サイズの最適化済み画像を使い、原画とローカルの添付ファイルはVercelへのアップロードから除外しています。
