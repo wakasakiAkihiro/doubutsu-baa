@@ -3,6 +3,8 @@ dist
 artifacts
 test-results
 playwright-report
+.codex-attachments
+assets/branding
 .git
 .vercel
 .env

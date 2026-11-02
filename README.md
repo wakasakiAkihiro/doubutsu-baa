@@ -92,6 +92,7 @@ Remove-Item Env:BASE_URL
 
 ## 画像・音・フォント
 
+- ホーム画面アイコン：絵本の子犬を参考に、草むらから顔を出す専用画像を内蔵の画像生成機能で制作しました。ブラウザ用ICO・PNG、iPhone用180px、Android用192px・512pxとマスク対応版を同梱しています。原画は `assets/branding/app-icon-source.png`、プロンプトは [icon-prompt.json](docs/icon-prompt.json)。`node scripts/generate-icons.mjs` で各サイズを再生成できます。
 - 動物画像：Codex内蔵の画像生成機能で、共通の子犬画像を画風の参照にして1種類ずつ制作したオリジナル画像です。透明背景の600×600 WebPとして `public/animals/` に保存します。
 - 画風：柔らかなガッシュ、水彩絵本の質感、丸い形、温かいパステル色。画像に文字、ロゴ、有名キャラクターは含めません。
 - 隠れ場所・花・背景：このプロジェクト用に作成したSVGとCSSです。
